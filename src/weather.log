@@ -1,1 +1,4 @@
 [2025-02-06T14:47:40.435923+00:00] weather_logger.INFO: Données météorologiques récupérées pour : Suisse {"Température":2.4,"Condition":"Overcast"} []
+[2025-02-06T14:54:24.491970+00:00] weather_logger.INFO: Données météorologiques récupérées pour : Geneve {"Température":3.1,"Condition":"Overcast"} []
+[2025-02-06T14:56:39.056134+00:00] weather_logger.INFO: Données météorologiques récupérées pour : geneve {"Température":3.1,"Condition":"Overcast"} []
+[2025-02-06T14:56:55.203663+00:00] weather_logger.INFO: Données météorologiques récupérées pour : Bangkok {"Température":28.3,"Condition":"Clear"} []

@@ -3,7 +3,6 @@ require '../vendor/autoload.php';
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-// Fonction pour récupérer les données météo
 function getWeatherData($city) {
     $apiKey = '0cac813d8a4946e7aed141031250602';
     $apiUrl = "http://api.weatherapi.com/v1/forecast.json?key={$apiKey}&q={$city}&days=3";
@@ -11,7 +10,6 @@ function getWeatherData($city) {
     return json_decode($response, true);
 }
 
-// Configuration de Monolog
 $logger = new Logger('weather_logger');
 $logger->pushHandler(new StreamHandler('weather.log', Logger::INFO));
 
@@ -29,7 +27,8 @@ if (isset($_GET['city'])) {
         $humidity = $current['humidity'];
         $pressure = $current['pressure_mb'];
 
-        // Enregistrer des informations détaillées dans le fichier log
+        
+
         $logger->info("Données météorologiques récupérées pour : {$city}", [
             'Température' => $temperature,
             'Condition' => $condition

@@ -3,10 +3,8 @@ require '../vendor/autoload.php';
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-// Configuration de Monolog pour la lecture des logs
 $logFile = 'weather.log';
 
-// Fonction pour lire les logs
 function readLogs($logFile) {
     if (file_exists($logFile)) {
         return file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -32,7 +30,26 @@ $logs = readLogs($logFile);
         <?php if (!empty($logs)) : ?>
             <ul>
                 <?php foreach ($logs as $log) : ?>
-                    <li><?= htmlspecialchars($log) ?></li>
+                    <?php
+                        $date = substr($log, 1, 19);
+
+                        $startCountry = strpos($log, 'Données météorologiques récupérées pour : ') + strlen('Données météorologiques récupérées pour : ');
+                        $endCountry = strpos($log, ' {"Température":', $startCountry);
+                        $country = trim(substr($log, $startCountry, $endCountry - $startCountry));
+
+                        $startJson = strpos($log, '{"Température":');
+                        $json_data = substr($log, $startJson);
+                        $data = json_decode($json_data, true);
+
+                        $temperature = $data['Température'] ?? 'N/A';
+                        $condition = $data['Condition'] ?? 'N/A';
+                    ?>
+                    <li>
+                        <strong>Date :</strong> <?= htmlspecialchars($date) ?><br>
+                        <strong>Pays / Ville :</strong> <?= htmlspecialchars($country) ?><br>
+                        <!-- <strong>Température :</strong> <?= htmlspecialchars($temperature) ?> °C<br>
+                        <strong>Condition :</strong> <?= htmlspecialchars($condition) ?> -->
+                    </li>
                 <?php endforeach; ?>
             </ul>
         <?php else : ?>
