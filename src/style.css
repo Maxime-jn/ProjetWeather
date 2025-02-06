@@ -77,6 +77,21 @@ a:hover {
     color: #fff;
 }
 
+/* Liste des logs */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: rgba(255, 255, 255, 0.2);
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 1.2em;
+}
+
 /* Responsive design */
 @media (max-width: 600px) {
     .container {
