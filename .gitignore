@@ -2,3 +2,8 @@
 /config/config.php
 composer.json
 composer.lock
+/src/weather.log
+/src/ip.log
+/src/performance.log
+/src/bans.json
+/src/requests.json
