@@ -82,51 +82,59 @@ function changeKeyType($keyType) {
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            text-align: center;
             color: white;
-            min-height: 100vh;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            transition: background 0.5s ease-in-out;
+            min-height: 100vh;
+            background-color: #333;
             background-size: cover;
             background-position: center center;
-            background-attachment: fixed;
         }
 
-        img {
-            max-width: 5vw;
-            max-height: 5vh;
-        }
         .background-blur {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: 100%;
-            background-position: center center;
-            filter: blur(8px) brightness(50%);
+            filter: blur(10px) brightness(40%);
             z-index: -1;
-            transition: all 0.5s ease-in-out;
         }
 
         .container {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            max-width: 450px;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 800px;
             width: 90%;
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
-        h1 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .city-name {
+            color: #FF9800;
+        }
+
+        .current-weather {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .weather-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
         .weather-icon {
@@ -135,47 +143,71 @@ function changeKeyType($keyType) {
             object-fit: contain;
         }
 
+        .weather-details p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
         .forecast {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
             margin-top: 20px;
+        }
+
+        .forecast h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .forecast-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
 
         .forecast-item {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 15px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 15px;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
-        
-        p {
+
+        .forecast-item .date-temp {
             display: flex;
-            justify-content: space-evenly;
-            
+            flex-direction: column;
+            align-items: flex-start;
         }
-        #separator {
-            padding-left: 5rem;
-            padding-right: 5rem;
+
+        .forecast-item .forecast-condition {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
-        a {
+
+        .forecast-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .back-btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 14px 28px;
-            text-decoration: none;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: #FF5722;
             color: white;
-            background: #FF9800;
+            text-decoration: none;
             border-radius: 8px;
             font-weight: bold;
             text-transform: uppercase;
-            transition: background 0.3s ease;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
-        a:hover {
-            background: #F57C00;
+        .back-btn:hover {
+            background-color: #FF3D00;
+            transform: scale(1.05);
         }
     </style>
 </head>

@@ -125,3 +125,5 @@
 [2025-02-20T12:47:29.365862+00:00] weather_logger.INFO: Données météorologiques récupérées pour : Versoix {"Température":10.2,"Condition":"Sunny"} []
 [2025-02-20T12:47:36.228628+00:00] weather_logger.INFO: Données météorologiques récupérées pour : Versoix {"Température":10.2,"Condition":"Sunny"} []
 [2025-02-20T12:47:45.101430+00:00] weather_logger.INFO: Données météorologiques récupérées pour : GENEVE {"Température":10.2,"Condition":"Sunny"} []
+[2025-02-20T12:56:35.522040+00:00] weather_logger.INFO: Données météorologiques récupérées pour : gENEVE {"Température":10.2,"Condition":"Sunny"} []
+[2025-02-20T13:02:18.898582+00:00] weather_logger.INFO: Données météorologiques récupérées pour : gENEVE {"Température":10.2,"Condition":"Sunny"} []

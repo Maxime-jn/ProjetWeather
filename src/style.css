@@ -19,20 +19,6 @@ body {
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
-#historyBody {
-    flex-direction: column;
-}
-
-#historyDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    max-height: 80vh;
-    overflow:  scroll;
-    overflow-x: hidden;
-}
-
 h1 {
     font-size: 3em;
     margin-bottom: 20px;
@@ -82,13 +68,9 @@ hr {
 
 a {
     color: #6dd5fa;
-    padding: 5px;
-    box-shadow: 0px 0px 32px 15px rgba(0, 0, 0, 0.288)  ;
-    border-radius: 6px;
     text-decoration: none;
     font-size: 1.2em;
     transition: color 0.3s ease;
-    margin-top: 3vh;
 }
 
 a:hover {
