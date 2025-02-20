@@ -82,72 +82,58 @@ function changeKeyType($keyType) {
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            text-align: center;
             color: white;
-            margin: 0;
-            padding: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background-color: #333;
+            margin: 0;
+            transition: background 0.5s ease-in-out;
             background-size: cover;
             background-position: center center;
+            background-attachment: fixed;
         }
 
+        img {
+            max-width: 5vw;
+            max-height: 5vh;
+        }
         .background-blur {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            filter: blur(10px) brightness(40%);
+            background-size: 100%;
+            background-position: center center;
+            filter: blur(8px) brightness(50%);
             z-index: -1;
+            transition: all 0.5s ease-in-out;
         }
 
         .container {
-            background: rgba(0, 0, 0, 0.75);
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 800px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            max-width: 450px;
             width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            position: relative;
+            z-index: 1;
         }
 
-        header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-        }
-
-        .city-name {
-            color: #FF9800;
-        }
-
-        .current-weather {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .weather-info {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            margin-bottom: 30px;
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
         }
 
         .weather-icon {
-            width: 120px;
-            height: 120px;
+            max-width: 120px;
+            max-height: 120px;
             object-fit: contain;
         }
-
-        .weather-details p {
-            font-size: 18px;
-            margin: 5px 0;
-        }
-
         .forecast {
             margin-top: 20px;
         }
@@ -171,6 +157,7 @@ function changeKeyType($keyType) {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 0.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
 
@@ -192,22 +179,31 @@ function changeKeyType($keyType) {
             object-fit: contain;
         }
 
-        .back-btn {
+        
+        p {
+            display: flex;
+            justify-content: space-evenly;
+            
+        }
+        #separator {
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+        a {
             display: inline-block;
-            margin-top: 30px;
-            padding: 15px 30px;
-            background-color: #FF5722;
-            color: white;
+            margin-top: 20px;
+            padding: 14px 28px;
             text-decoration: none;
+            color: white;
+            background: #FF9800;
             border-radius: 8px;
             font-weight: bold;
             text-transform: uppercase;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background 0.3s ease;
         }
 
-        .back-btn:hover {
-            background-color: #FF3D00;
-            transform: scale(1.05);
+        a:hover {
+            background: #F57C00;
         }
     </style>
 </head>
