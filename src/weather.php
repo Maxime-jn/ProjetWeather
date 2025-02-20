@@ -11,6 +11,36 @@ $requestWindow = 60; // Fenêtre de temps en secondes (1 minute)
 $banFile = 'bans.json'; // Fichier de stockage des bans
 $ipLogFile = 'requests.json'; // Fichier de stockage des requêtes par IP
 
+$keyType = filter_input(INPUT_GET, "type", FILTER_SANITIZE_FULL_SPECIAL_CHARS); // peut etre possiblement définit a "texts", soit a "icons"
+if ($keyType === false || $keyType === null) {
+    
+}
+$keysArray = [
+    "texts" => [
+        "temperature" => "<strong>Température : </strong>",
+        "windSpeed" => "<strong>Vitesse du vent : </strong>",
+        "windDir" => "<strong>Direction du vent : </strong>",
+        "humidity" => "<strong>Humidité : </strong>",
+        "pressure" => "<strong>Pression : </strong>",  
+    ],
+    "icons" => [
+        "temperature" => "<img src='./img/icons/tempChaude.png' alt='température'>",
+        "windSpeed" => "<img src='./img/icons/windForce.png' alt=''>",
+        "windDir" => "<img src='./img/icons/windDirection.png' alt=''>",
+        "humidity" => "<img src='./img/icons/humidite.png' alt=''>",
+        "pressure" => "<img src='./img/icons/pression.png' alt=''>",
+    ]
+];
+
+function changeKeyType($keyType) {
+    if ($keyType == "texts") {
+        return "icons";
+    }
+    else {
+        return "texts";
+    }
+}
+
 // Fonction pour vérifier si l'IP est bannie
 function isBanned($ip) {
     global $banFile;
@@ -204,6 +234,7 @@ if (isset($_GET['city'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Météo - <?= htmlspecialchars($city) ?></title>
     <style>
+        
         body {
             font-family: 'Arial', sans-serif;
             color: white;
@@ -237,6 +268,11 @@ if (isset($_GET['city'])) {
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
+        header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
         header h1 {
             font-size: 32px;
             margin-bottom: 10px;
@@ -333,6 +369,19 @@ if (isset($_GET['city'])) {
             background-color: #FF3D00;
             transform: scale(1.05);
         }
+        p {
+            display: flex;
+            justify-content: space-evenly;
+            
+        }
+        #separator {
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+        img {
+            max-width: 5vw;
+            max-height: 5vh;
+        }
     </style>
 </head>
 
@@ -341,17 +390,20 @@ if (isset($_GET['city'])) {
     <div class="container">
         <header>
             <h1>Météo actuelle - <span class="city-name"><?= htmlspecialchars($city) ?></span></h1>
+            <img src="<?= $current['condition']['icon'] ?>" alt="Icône météo" class="weather-icon">
         </header>
 
         <section class="current-weather">
+        
             <div class="weather-info">
-                <img src="<?= $current['condition']['icon'] ?>" alt="Icône météo" class="weather-icon">
+                
                 <div class="weather-details">
-                    <p><strong>Température :</strong> <?= $temperature ?>°C</p>
-                    <p><strong>Condition :</strong> <?= $condition ?></p>
-                    <p><strong>Vent :</strong> <?= $windSpeed ?> km/h (<?= $windDir ?>)</p>
-                    <p><strong>Humidité :</strong> <?= $humidity ?>%</p>
-                    <p><strong>Pression :</strong> <?= $pressure ?> hPa</p>
+                <p><strong>Condition de la méteo :</strong><span id="separator"></span> <?= $condition ?></p>
+                <p><strong><?= $keysArray[$keyType]['temperature'] ?></strong> <span id="separator"></span> <?= $temperature ?>°C</p>
+                <p><?= $keysArray[$keyType]['windSpeed'] ?> <span id="separator"></span> <?= $windSpeed ?> km/h</p>
+                <p><?= $keysArray[$keyType]['windDir'] ?> <span id="separator"></span> <?= $windDir ?></p>
+                <p><?= $keysArray[$keyType]['humidity'] ?> <span id="separator"></span> <?= $humidity ?>%</p>
+                <p><?= $keysArray[$keyType]['pressure'] ?> <span id="separator"></span> <?= $pressure ?> hPa</p>
                 </div>
             </div>
         </section>
@@ -375,6 +427,14 @@ if (isset($_GET['city'])) {
         </section>
 
         <footer>
+            <?php
+                if ($keyType == "texts") { ?>
+                    <a class="back-btn" href="weather.php?city=<?= $city ?>&type=icons">Changer en mode Icone</a>
+                <?php } else { ?>
+                    <a class="back-btn" href="weather.php?city=<?= $city ?>&type=texts">Changer en mode Textuel</a>
+                <?php }
+
+            ?>
             <a href="index.php" class="back-btn">Retour à l'accueil</a>
         </footer>
     </div>

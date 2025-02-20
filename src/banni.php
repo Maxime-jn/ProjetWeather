@@ -51,6 +51,8 @@ header("Refresh: 1");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banni</title>
     <style>
+
+
         body {
             background-color: black;
             display: flex;
@@ -59,7 +61,10 @@ header("Refresh: 1");
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: "Arial", sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
+
+            
+            
             color: white;
             text-align: center;
         }
