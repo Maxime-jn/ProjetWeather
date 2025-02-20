@@ -38,6 +38,38 @@ if (isset($_GET['city'])) {
         $logger->warning("Aucune donnée météorologique trouvée pour : {$city}");
     }
 }
+
+
+$keyType = filter_input(INPUT_GET, "type", FILTER_SANITIZE_FULL_SPECIAL_CHARS); // peut etre possiblement définit a "texts", soit a "icons"
+if ($keyType === false || $keyType === null) {
+    
+}
+$keysArray = [
+    "texts" => [
+        "temperature" => "<strong>Température : </strong>",
+        "windSpeed" => "<strong>Vitesse du vent : </strong>",
+        "windDir" => "<strong>Direction du vent : </strong>",
+        "humidity" => "<strong>Humidité : </strong>",
+        "pressure" => "<strong>Pression : </strong>",  
+    ],
+    "icons" => [
+        "temperature" => "<img src='./img/icons/tempChaude.png' alt='température'>",
+        "windSpeed" => "<img src='./img/icons/windForce.png' alt=''>",
+        "windDir" => "<img src='./img/icons/windDirection.png' alt=''>",
+        "humidity" => "<img src='./img/icons/humidite.png' alt=''>",
+        "pressure" => "<img src='./img/icons/pression.png' alt=''>",
+    ]
+];
+
+function changeKeyType($keyType) {
+    if ($keyType == "texts") {
+        return "icons";
+    }
+    else {
+        return "texts";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -63,6 +95,10 @@ if (isset($_GET['city'])) {
             background-attachment: fixed;
         }
 
+        img {
+            max-width: 5vw;
+            max-height: 5vh;
+        }
         .background-blur {
             position: fixed;
             top: 0;
@@ -115,7 +151,16 @@ if (isset($_GET['city'])) {
             justify-content: space-between;
             gap: 15px;
         }
-
+        
+        p {
+            display: flex;
+            justify-content: space-evenly;
+            
+        }
+        #separator {
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
         a {
             display: inline-block;
             margin-top: 20px;
@@ -140,11 +185,12 @@ if (isset($_GET['city'])) {
     <div class="container">
         <h1>Météo à <?= htmlspecialchars($city) ?></h1>
         <img src="<?= $current['condition']['icon'] ?>" alt="Icône météo" class="weather-icon">
-        <p><strong>Température :</strong> <?= $temperature ?>°C</p>
-        <p><strong>Condition :</strong> <?= $condition ?></p>
-        <p><strong>Vent :</strong> <?= $windSpeed ?> km/h (<?= $windDir ?>)</p>
-        <p><strong>Humidité :</strong> <?= $humidity ?>%</p>
-        <p><strong>Pression :</strong> <?= $pressure ?> hPa</p>
+        <p><strong>Condition de la méteo :</strong><span id="separator"></span> <?= $condition ?></p>
+        <p><strong><?= $keysArray[$keyType]['temperature'] ?></strong> <span id="separator"></span> <?= $temperature ?>°C</p>
+        <p><?= $keysArray[$keyType]['windSpeed'] ?> <span id="separator"></span> <?= $windSpeed ?> km/h</p>
+        <p><?= $keysArray[$keyType]['windDir'] ?> <span id="separator"></span> <?= $windDir ?></p>
+        <p><?= $keysArray[$keyType]['humidity'] ?> <span id="separator"></span> <?= $humidity ?>%</p>
+        <p><?= $keysArray[$keyType]['pressure'] ?> <span id="separator"></span> <?= $pressure ?> hPa</p>
 
         <h2>Prévisions</h2>
         <div class="forecast">
@@ -157,6 +203,15 @@ if (isset($_GET['city'])) {
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php
+            if ($keyType == "texts") { ?>
+                <a href="weather.php?city=<?= $city ?>&type=icons">Changer en mode Icone</a>
+            <?php } else { ?>
+                <a href="weather.php?city=<?= $city ?>&type=texts">Changer en mode Textuel</a>
+            <?php }
+
+        ?>
+        
         <a href="index.php">Retour</a>
     </div>
 

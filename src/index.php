@@ -11,6 +11,7 @@
         <h1>Conditions Météorologiques</h1>
         <form method="GET" action="weather.php">
             <input type="text" name="city" placeholder="Entrez une ville" required>
+            <input type="hidden" name="type" value="texts">
             <button type="submit">Rechercher</button>
         </form>
         <a href="historique.php">Voir l'historique</a>

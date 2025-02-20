@@ -13,6 +13,9 @@ function readLogs($logFile) {
     }
 }
 
+
+
+
 $logs = readLogs($logFile);
 ?>
 
@@ -24,8 +27,8 @@ $logs = readLogs($logFile);
     <title>Historique des Logs</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
+<body id="historyBody">
+    <div class="container" id="historyDiv">
         <h1>Historique des Logs</h1>
         <?php if (!empty($logs)) : ?>
             <ul>
@@ -42,6 +45,8 @@ $logs = readLogs($logFile);
                         $data = json_decode($json_data, true);
 
                         $temperature = $data['Température'] ?? 'N/A';
+
+
                         $condition = $data['Condition'] ?? 'N/A';
                     ?>
                     <li>
@@ -55,7 +60,8 @@ $logs = readLogs($logFile);
         <?php else : ?>
             <p>Aucun log disponible.</p>
         <?php endif; ?>
-        <a href="index.php">Retour</a>
+        
     </div>
+    <a href="index.php">Retour</a>
 </body>
 </html>
