@@ -29,13 +29,6 @@ ProjetWeather est une application web qui permet aux utilisateurs de consulter l
      $apiKey = 'VOTRE_API_KEY';
     ```
 
-4. Assurez-vous que les fichiers de logs et de stockage des requêtes/bans existent et sont accessibles en écriture :
-
-    ```bash
-    touch src/weather.log src/ip.log src/performance.log src/error.log src/alert.log src/bans.json src/requests.json
-    chmod 666 src/*.log src/*.json
-    ```
-
 ## Utilisation
 
 1. Démarrez un serveur PHP intégré pour tester l'application localement :
