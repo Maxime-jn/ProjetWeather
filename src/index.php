@@ -9,6 +9,9 @@
 <body>
     <div class="container">
         <h1>Conditions Météorologiques</h1>
+        <?php if (isset($_GET['error'])): ?>
+            <p style="color: red;"><?= htmlspecialchars($_GET['error']) ?></p>
+        <?php endif; ?>
         <form method="GET" action="weather.php">
             <input type="text" name="city" placeholder="Entrez une ville" required>
             <input type="hidden" name="type" value="texts">
