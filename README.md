@@ -23,14 +23,10 @@ ProjetWeather est une application web qui permet aux utilisateurs de consulter l
     composer install
     ```
 
-3. Créez un fichier `config.php` dans le dossier `config` et ajoutez votre clé API WeatherAPI :
+3. Modifier la ligne 103 dans weather.php ou vous remplacer votre API Key :
 
     ```php
-    // filepath: c:\Users\Admin\Documents\CFPT\cfpt\2024-2025\DevOPS\ProjetWeather\config\config.php
-    <?php
-    return [
-        'weather_api_key' => 'votre_cle_api_weatherapi'
-    ];
+     $apiKey = 'VOTRE_API_KEY';
     ```
 
 4. Assurez-vous que les fichiers de logs et de stockage des requêtes/bans existent et sont accessibles en écriture :
