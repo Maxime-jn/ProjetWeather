@@ -8,3 +8,4 @@ composer.lock
 /src/bans.json
 /src/requests.json
 /src/error.log
+/src/alert.log

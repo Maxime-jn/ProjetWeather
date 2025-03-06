@@ -129,6 +129,9 @@ $errorLogger->pushHandler(new StreamHandler('error.log', Logger::ERROR));
 $performanceLogger = new Logger('performance_logger');
 $performanceLogger->pushHandler(new StreamHandler('performance.log', Logger::INFO));
 
+$alertLogger = new Logger('alert_logger');
+$alertLogger->pushHandler(new StreamHandler('alert.log', Logger::ALERT));
+
 // Vérification de l'IP
 $userIp = $_SERVER['REMOTE_ADDR'];
 if ($userIp === '::1') {
@@ -162,6 +165,7 @@ if (isset($_GET['city'])) {
         banIp($userIp); // Bannir l'IP si elle dépasse la limite
         $errorLogger->warning("IP bannie pour spam : {$userIp}");
         header("Location: banni.php?ban_duration=$banDuration");
+        exit;
     }
 
     // Logguer la requête
@@ -197,10 +201,10 @@ if (isset($_GET['city'])) {
         ]);
         
     } else {
-        $temperature = $condition = $windSpeed = $windDir = $humidity = $pressure = "N/A";
         $errorLogger->warning("Aucune donnée météorologique trouvée pour : {$city}");
-        // Log more info about the failed request
-        $errorLogger->warning("Données météo invalides pour : {$city}", ['WeatherData' => $weatherData]);
+        // Rediriger vers la page d'accueil avec un message d'erreur
+        header("Location: index.php?error=Ville non trouvée");
+        exit;
     }
     
     // Log execution time of the request
@@ -221,6 +225,47 @@ if (isset($_GET['city'])) {
 } else {
     echo "Veuillez spécifier une ville.";
 }
+
+
+// Vérification du temps de réponse de l'API
+$startTime = microtime(true);
+$weatherData = getWeatherData($city);
+$endTime = microtime(true);
+$executionTime = $endTime - $startTime;
+
+if ($executionTime > 2) {
+    $alertLogger->alert("Temps de réponse de l'API trop long", [
+        'Ville' => $city,
+        'Temps (s)' => $executionTime
+    ]);
+}
+
+// Vérification de la disponibilité de l'API
+$errorCount = 0;
+if ($weatherData === null) {
+    $errorCount++;
+    if ($errorCount > 5) {
+        $alertLogger->alert("Problèmes de disponibilité de l\'API", [
+            'Nombre d\'erreurs' => $errorCount
+        ]);
+    }
+}
+
+// Vérification des erreurs PHP
+$errorLogFile = 'error.log';
+if (file_exists($errorLogFile)) {
+    $errorLogContent = file_get_contents($errorLogFile);
+    $errorLogLines = explode("\n", $errorLogContent);
+    $errorCount = count($errorLogLines) - 1; // Exclure la dernière ligne vide
+
+    if ($errorCount > 3) {
+        $alertLogger->alert("Trop d'erreurs PHP détectées", [
+            'Nombre d\'erreurs' => $errorCount
+        ]);
+    }
+}
+
+
 ?>
 
 
