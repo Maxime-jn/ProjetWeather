@@ -68,10 +68,12 @@ if ($wantToClear === true){
                 <p>Aucun log disponible.</p>
             <?php endif; ?>
         </div>
-        <form action="" method="post">
-            <input type="hidden" name="weatherClear" value="true">
-            <button type="submit" >Supprimer l'historique</button>
-        </form>
+        <?php if (!empty($logs)) { ?>
+            <form action="" method="post">
+                <input type="hidden" name="weatherClear" value="true">
+                <button type="submit" >Supprimer l'historique</button>
+            </form>
+        <?php } ?>
     </div>
 
     <a href="index.php">Retour</a>
