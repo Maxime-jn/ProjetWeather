@@ -10,6 +10,21 @@ function readLogs($logFile) {
 }
 
 $logs = readLogs($logFile);
+$wantToClear = filter_input(INPUT_POST,"weatherClear", FILTER_VALIDATE_BOOL);
+if ($wantToClear === true){
+    
+    // Vider le contenu du fichier de log directement
+    file_put_contents($logFile, '');
+    
+    // Réinitialisation de la variable $logs
+    $logs = [];
+    $_POST = null;
+
+    // Redirection pour éviter la soumission multiple du formulaire
+    header('Location: index.php');
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -20,18 +35,8 @@ $logs = readLogs($logFile);
     <title>Historique des Logs</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .log-container {
-            max-width: 80vw;
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 20px;
-        }
-        .log-entry {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            text-align: left;
+        body {
+            flex-direction: column;
         }
     </style>
 </head>
@@ -57,15 +62,18 @@ $logs = readLogs($logFile);
                         ?>
                         <p><strong>Date :</strong> <?= htmlspecialchars($date) ?></p>
                         <p><strong>Pays / Ville :</strong> <?= htmlspecialchars($country) ?></p>
-                        <!-- <p><strong>Température :</strong> <?= htmlspecialchars($temperature) ?> °C</p>
-                        <p><strong>Condition :</strong> <?= htmlspecialchars($condition) ?></p> -->
                     </div>
                 <?php endforeach; ?>
             <?php else : ?>
                 <p>Aucun log disponible.</p>
             <?php endif; ?>
         </div>
-        <a href="index.php">Retour</a>
+        <form action="" method="post">
+            <input type="hidden" name="weatherClear" value="true">
+            <button type="submit" >Supprimer l'historique</button>
+        </form>
     </div>
+
+    <a href="index.php">Retour</a>
 </body>
 </html>

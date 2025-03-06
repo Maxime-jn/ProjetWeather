@@ -69,35 +69,7 @@ header("Refresh: 1");
             text-align: center;
         }
 
-        .banned-message {
-            font-size: 60px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            animation: shake 1.5s ease-in-out infinite, flicker 0.1s infinite alternate;
-            color: red;
-            margin-bottom: 20px;
-        }
 
-        #timer {
-            font-size: 30px;
-            font-weight: bold;
-            color: yellow;
-        }
-
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            50% { transform: translateX(10px); }
-            75% { transform: translateX(-10px); }
-            100% { transform: translateX(0); }
-        }
-
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
     </style>
 </head>
 <body>
